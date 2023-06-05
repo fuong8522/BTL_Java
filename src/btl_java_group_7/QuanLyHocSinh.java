@@ -19,6 +19,8 @@ public class QuanLyHocSinh implements Serializable{
     
     public static List<Lop> dslop = new ArrayList<Lop>();
     public static List<HocSinh> dshocsinh = new ArrayList<HocSinh>();
+    public static List<MonHoc> dsmonhoc = new ArrayList<MonHoc>();
+    public static List<Username> dsuser = new ArrayList<Username>();
     
     public static void LuuFile(List<Lop> ds) throws Exception {
         FileOutputStream fs = new FileOutputStream("lop.dat");
@@ -32,6 +34,26 @@ public class QuanLyHocSinh implements Serializable{
     }
     public static void LuuFileHS(List<HocSinh> ds) throws Exception {
         FileOutputStream fs = new FileOutputStream("hs.dat");
+        //Tạo luồng để serial đối tượng
+        ObjectOutputStream os = new ObjectOutputStream(fs);
+        //chuyển tải đối tượng tới đích (tập tin)
+        os.writeObject(ds);
+        //đóng luồng
+        os.close();
+        fs.close();
+    }
+    public static void LuuFileMH(List<MonHoc> ds) throws Exception {
+        FileOutputStream fs = new FileOutputStream("monhoc.dat");
+        //Tạo luồng để serial đối tượng
+        ObjectOutputStream os = new ObjectOutputStream(fs);
+        //chuyển tải đối tượng tới đích (tập tin)
+        os.writeObject(ds);
+        //đóng luồng
+        os.close();
+        fs.close();
+    }
+    public static void LuuFileUser(List<Username> ds) throws Exception {
+        FileOutputStream fs = new FileOutputStream("user.dat");
         //Tạo luồng để serial đối tượng
         ObjectOutputStream os = new ObjectOutputStream(fs);
         //chuyển tải đối tượng tới đích (tập tin)
@@ -60,6 +82,26 @@ public class QuanLyHocSinh implements Serializable{
         fi.close();
         ois.close();
         return (List<HocSinh>)kq;
+    }
+    public static List<MonHoc> DocFileMH() throws Exception {
+        
+        Object kq = null;
+        FileInputStream fi = new FileInputStream("monhoc.dat");
+        ObjectInputStream ois = new ObjectInputStream(fi);
+        kq = ois.readObject();
+        fi.close();
+        ois.close();
+        return (List<MonHoc>)kq;
+    }
+    public static List<Username> DocFileUser() throws Exception {
+        
+        Object kq = null;
+        FileInputStream fi = new FileInputStream("user.dat");
+        ObjectInputStream ois = new ObjectInputStream(fi);
+        kq = ois.readObject();
+        fi.close();
+        ois.close();
+        return (List<Username>)kq;
     }
     
     
