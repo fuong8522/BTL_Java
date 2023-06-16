@@ -10,13 +10,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 /**
  *
  * @author fuong
  */
 public class QuanLyHocSinh implements Serializable{
-    
+        public static String userName;
+    public static String gvName;
     //Khai báo danh sách.
     public static List<Lop> dslop = new ArrayList<Lop>();
     public static List<HocSinh> dshocsinh = new ArrayList<HocSinh>();
@@ -25,6 +25,7 @@ public class QuanLyHocSinh implements Serializable{
     public static List<Diem> dsdiem = new ArrayList<Diem>();
     public static List<CanBoGiaoVien> dsgv = new ArrayList<CanBoGiaoVien>();
     public static List<PhanCongGiangDay> dspcgd = new ArrayList<PhanCongGiangDay>();
+
     
     //Lưu file danh sách lớp.
     public static void LuuFile(List<Lop> ds) throws Exception {

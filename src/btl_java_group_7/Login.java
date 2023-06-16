@@ -13,6 +13,7 @@ public class Login extends javax.swing.JFrame {
     /**
      * Creates new form Login
      */
+
     public Login() {
         try {
             QuanLyHocSinh.dsuser = QuanLyHocSinh.DocFileUser();
@@ -228,6 +229,21 @@ public class Login extends javax.swing.JFrame {
         if (checkregexLogin()) {
             String username = txtusername.getText();
             String password = txtpassword.getText();
+            QuanLyHocSinh.userName = username;
+            try {
+                QuanLyHocSinh.dsgv = QuanLyHocSinh.DocFileGV();
+            } catch (Exception ex) {
+                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            System.out.println(QuanLyHocSinh.userName);
+
+            for (CanBoGiaoVien x : QuanLyHocSinh.dsgv) {
+                if (x.getMagv().equals(QuanLyHocSinh.userName)) {
+                    QuanLyHocSinh.gvName = x.getHoTen();
+
+                    break;
+                }
+            }
             String quen = "";
             if (checkExistAccount(username, password)) {
                 for (Username x : QuanLyHocSinh.dsuser) {
@@ -290,6 +306,7 @@ public class Login extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             public void run() {
                 new Login().setVisible(true);
             }
