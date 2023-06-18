@@ -299,7 +299,10 @@ public class HomeGV extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        Gv_XemLopDay lopday = new Gv_XemLopDay();
+        lopday.setVisible(true);
+        lopday.pack();
+        this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -324,7 +327,10 @@ public class HomeGV extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
+        Gv_Xemdiem dsdiem = new Gv_Xemdiem();
+        dsdiem.setVisible(true);
+        dsdiem.pack();
+        this.dispose();
     }//GEN-LAST:event_jButton6ActionPerformed
 
     /**

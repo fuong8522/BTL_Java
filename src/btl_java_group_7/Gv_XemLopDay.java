@@ -1,5 +1,10 @@
 package btl_java_group_7;
 
+import java.awt.Color;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author fuong
@@ -9,8 +14,53 @@ public class Gv_XemLopDay extends javax.swing.JFrame {
     /**
      * Creates new form Gv_XemLopDay
      */
+    public DefaultTableModel model;
+
     public Gv_XemLopDay() {
         initComponents();
+        tableViewStudent();
+    }
+
+    public boolean CheckMalopGV(String malop) {
+        boolean check = false;
+        try {
+            QuanLyHocSinh.dspcgd = QuanLyHocSinh.DocFilePCGD();
+        } catch (Exception ex) {
+            Logger.getLogger(Gv_XemLopDay.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        for (PhanCongGiangDay x : QuanLyHocSinh.dspcgd) {
+            if (malop.equals(x.getMaLop()) && x.getMaCBGV().equals(QuanLyHocSinh.userName)) {
+                check = true;
+                break;
+            }
+        }
+        return check;
+    }
+
+    public void showResult() {
+        model.setRowCount(0);
+        for (Lop b : QuanLyHocSinh.dslop) {
+            if (CheckMalopGV(b.getMalop().toString())) {
+                model.addRow(new Object[]{b.getMalop(), b.getTenlop(), b.getNienKhoa(), b.getSiso(), b.getGvChuNhiem()});
+            }
+        }
+        model.fireTableDataChanged();
+    }
+
+    public void tableViewStudent() {
+        model = (DefaultTableModel) table.getModel();
+        table.setRowHeight(30);
+        table.setShowGrid(true);
+        table.setGridColor(Color.BLACK);
+        table.setBackground(Color.white);
+        try {
+            QuanLyHocSinh.dslop = QuanLyHocSinh.DocFile();
+        } catch (Exception ex) {
+            Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        showResult();
+
     }
 
     /**
@@ -26,16 +76,12 @@ public class Gv_XemLopDay extends javax.swing.JFrame {
         jPanel5 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
-        txtsearch = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
-        txtsearchby = new javax.swing.JComboBox<>();
         jPanel9 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
         jButton9 = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
         jButton11 = new javax.swing.JButton();
-        jButton19 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -52,17 +98,9 @@ public class Gv_XemLopDay extends javax.swing.JFrame {
         jPanel8.setBackground(new java.awt.Color(0, 204, 204));
         jPanel8.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jLabel12.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
-        jLabel12.setText("Tìm Kiếm Lớp Học");
-
-        jButton2.setText("Search");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
-        txtsearchby.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Theo Mã Lớp", "Theo Tên Lớp", "Theo GVCN" }));
+        jLabel12.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel12.setText("Danh Sách Lớp Giảng Dạy");
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -70,25 +108,15 @@ public class Gv_XemLopDay extends javax.swing.JFrame {
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addGap(23, 23, 23)
-                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
-                .addComponent(txtsearch, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtsearchby, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(39, 39, 39)
-                .addComponent(jButton2)
+                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 1084, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel12)
-                    .addComponent(txtsearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2)
-                    .addComponent(txtsearchby, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addGap(15, 15, 15)
+                .addComponent(jLabel12)
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         jPanel9.setBackground(new java.awt.Color(0, 204, 204));
@@ -155,19 +183,10 @@ public class Gv_XemLopDay extends javax.swing.JFrame {
 
         jButton11.setBackground(new java.awt.Color(0, 153, 153));
         jButton11.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jButton11.setText("Exit");
+        jButton11.setText("Trở Lại");
         jButton11.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton11ActionPerformed(evt);
-            }
-        });
-
-        jButton19.setBackground(new java.awt.Color(0, 153, 153));
-        jButton19.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jButton19.setText("Xem Danh Sách Học Sinh");
-        jButton19.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton19ActionPerformed(evt);
             }
         });
 
@@ -181,9 +200,7 @@ public class Gv_XemLopDay extends javax.swing.JFrame {
                     .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                        .addGap(79, 79, 79)
-                        .addComponent(jButton19, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(79, 767, Short.MAX_VALUE)
                         .addComponent(jButton9)
                         .addGap(18, 18, 18)
                         .addComponent(jButton10)
@@ -203,8 +220,7 @@ public class Gv_XemLopDay extends javax.swing.JFrame {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton19, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(37, 37, 37))
         );
 
@@ -228,12 +244,12 @@ public class Gv_XemLopDay extends javax.swing.JFrame {
                 .addComponent(jLabel3)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(85, 85, 85)
+                        .addGap(221, 221, 221)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(208, 208, 208)
+                        .addGap(397, 397, 397)
                         .addComponent(jLabel2)))
-                .addContainerGap(456, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -243,7 +259,7 @@ public class Gv_XemLopDay extends javax.swing.JFrame {
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel2)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -291,31 +307,26 @@ public class Gv_XemLopDay extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-       
-    }//GEN-LAST:event_jButton2ActionPerformed
-
     private void tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMouseClicked
-       
+
     }//GEN-LAST:event_tableMouseClicked
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-       
+
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        
+
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-        
+        HomeGV homegv = new HomeGV();
+        homegv.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButton11ActionPerformed
-
-    private void jButton19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton19ActionPerformed
-       
-    }//GEN-LAST:event_jButton19ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -355,8 +366,6 @@ public class Gv_XemLopDay extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
-    private javax.swing.JButton jButton19;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
@@ -369,7 +378,5 @@ public class Gv_XemLopDay extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable table;
-    private javax.swing.JTextField txtsearch;
-    private javax.swing.JComboBox<String> txtsearchby;
     // End of variables declaration//GEN-END:variables
 }
