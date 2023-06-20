@@ -10,6 +10,7 @@ import javax.swing.table.DefaultTableModel;
  * @author fuong
  */
 public class Gv_dshocsinh extends javax.swing.JFrame {
+
     public String malopcheck = "";
     public DefaultTableModel model5;
     public int rowIndex2;
@@ -19,15 +20,14 @@ public class Gv_dshocsinh extends javax.swing.JFrame {
         tableViewStudentPCGD();
     }
 
-
     public void showResultPCGD() {
         model5.setRowCount(0);
-                try {
+        try {
             QuanLyHocSinh.dslop = QuanLyHocSinh.DocFile();
         } catch (Exception ex) {
             Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
         }
-                                System.out.println(QuanLyHocSinh.gvName);
+        System.out.println(QuanLyHocSinh.gvName);
 
         for (Lop a : QuanLyHocSinh.dslop) {
             if (a.getGvChuNhiem().equals(QuanLyHocSinh.gvName)) {
@@ -35,14 +35,14 @@ public class Gv_dshocsinh extends javax.swing.JFrame {
                 break;
             }
         }
-        
-                        try {
-                    QuanLyHocSinh.LuuFileHS(QuanLyHocSinh.dshocsinh);
-                } catch (Exception ex) {
-                    Logger.getLogger(QuanLyHocSinh.class.getName()).log(Level.SEVERE, null, ex);
-                }
-        
-                try {
+
+        try {
+            QuanLyHocSinh.LuuFileHS(QuanLyHocSinh.dshocsinh);
+        } catch (Exception ex) {
+            Logger.getLogger(QuanLyHocSinh.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        try {
             QuanLyHocSinh.dshocsinh = QuanLyHocSinh.DocFileHS();
         } catch (Exception ex) {
             Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
@@ -55,8 +55,6 @@ public class Gv_dshocsinh extends javax.swing.JFrame {
         model5.fireTableDataChanged();
     }
 
-    
-    
     public void tableViewStudentPCGD() {
         model5 = (DefaultTableModel) table2.getModel();
         table2.setRowHeight(30);
@@ -70,7 +68,7 @@ public class Gv_dshocsinh extends javax.swing.JFrame {
         }
         showResultPCGD();
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
